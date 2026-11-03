@@ -91,7 +91,7 @@ PART 3 - ADDING A FINISHED PROJECT (no coding needed)
     "area": "Sriperumbudur, Kancheepuram",
     "site": "Office",
     "type": "Office partitions",
-    "colour": "Anthracite Grey",
+    "colour": "Agate Grey",
     "count": 9,
     "completed": "2026-12",
     "imgs": ["images/projects/sriperumbudur-office-1.jpg"]
@@ -104,9 +104,8 @@ PART 3 - ADDING A FINISHED PROJECT (no coding needed)
        Fixed and combination, Sliding doors, French doors, Fold and slide doors,
        Casement doors, Ventilators, Balcony design, Office partitions,
        Mixed windows and doors
-     "colour": Pristine White, Ivory / Cream, Agate Grey, Anthracite Grey,
-       Black, Chartwell Green, Steel Blue, Dark Red, Golden Oak, Walnut,
-       Dark Oak, Rustic Oak, Mahogany
+     "colour": Pristine White, Walnut, Golden Oak, Agate Grey, Black
+       (shown on the site as White, Walnut brown, Golden Oak, Grey, Black)
      "completed": year-month, e.g. "2026-11".
   3. Save and refresh the Projects page. If nothing shows, the file has a typo
      (usually a missing comma or quote). Paste it into jsonlint.com to find it.
