@@ -1,0 +1,112 @@
+SEYON UPVC WEBSITE (seyonupvc.com) - HOSTINGER UPLOAD AND GOOGLE GUIDE
+=======================================================================
+
+WHAT IS IN THIS ZIP
+  seyon-upvc-public_html.zip   <- upload this one to Hostinger. It contains:
+    index.html                        Home + live 3D showroom
+    products.html                     all window and door types
+    why-seyon.html                    Why Seyon
+    architects-builders.html          for architects and builders
+    projects.html                     finished projects
+    contact.html                      contact and quote
+    Service pages:
+      upvc-windows-chennai.html, upvc-sliding-doors-chennai.html,
+      office-partitions-chennai.html, balcony-design-chennai.html,
+      upvc-windows-avadi.html
+    Area pages:
+      upvc-windows-thiruvallur.html, upvc-windows-kancheepuram.html,
+      upvc-windows-chengalpattu.html, upvc-windows-chennai-city.html
+    images/                           all photos
+    projects.json                     list of finished projects (empty to start)
+    sitemap.xml, robots.txt           for Google
+    favicon files, .htaccess          browser icon, https and speed settings
+
+PART 1 - UPLOAD (about 10 minutes)
+  1. Log in to hPanel (hpanel.hostinger.com) > Websites > seyonupvc.com > Dashboard.
+  2. Turn on SSL first: Security > SSL > install the free SSL and wait until it shows Active.
+  3. Files > File Manager > open public_html.
+  4. Delete Hostinger's default page (default.php or index.php) if it is there.
+     If an older Seyon package was uploaded before, delete those files too
+     (keep projects.json and images/projects if you have added projects).
+  5. Upload seyon-upvc-public_html.zip into public_html, right-click it > Extract.
+     All the .html files, images/ and .htaccess must sit DIRECTLY inside
+     public_html, not inside a second folder.
+  6. Delete the zip from public_html.
+  7. Open https://seyonupvc.com in a private/incognito window and click through
+     every menu item, the Services links and the Areas we serve links in the footer.
+
+     .htaccess starts with a dot, so File Manager may hide it.
+     Turn on "Show hidden files" in File Manager settings to see it.
+
+PART 2 - GOOGLE (do this the same day you go live)
+  A. Google Search Console (tells Google the site exists)
+     1. Go to search.google.com/search-console and sign in with Seyon's Gmail.
+     2. Add property > Domain > type seyonupvc.com.
+     3. Google shows a TXT record. In hPanel: Domains > seyonupvc.com > DNS / Nameservers
+        > Add record > Type TXT, Name @, paste the value > Save. Back in Search
+        Console click Verify (it can take up to an hour).
+     4. Left menu > Sitemaps > enter  sitemap.xml  > Submit.
+  B. Google Business Profile (most important for "near me" and Google Maps)
+     1. Go to business.google.com, add "Seyon UPVC".
+     2. Primary category: Window installation service.
+        Extra categories: Door supplier, Glass & mirror shop.
+     3. Address: No. 35, Ganapathi Nagar, near Ashwin Clinic, Ayilcheri, Avadi,
+        Tamil Nadu 600072. Phone: 97911 10463. Website: https://seyonupvc.com
+     4. Service areas: Chennai, Thiruvallur, Kancheepuram, Chengalpattu
+        (you can also add towns such as Tambaram, Sriperumbudur, Avadi).
+     5. Verify (Google sends a code or asks for a short video of the unit).
+     6. Add 20+ real photos: unit, machines, team, finished jobs. Post weekly.
+     7. Ask every happy customer for a Google review and reply to each one.
+  C. Use exactly the same name, address and phone on JustDial, IndiaMART,
+     Sulekha, TradeIndia and Facebook, with the website link.
+
+PART 3 - ADDING A FINISHED PROJECT (no coding needed)
+  1. In File Manager, open public_html/images and create a folder called projects.
+     Upload the photos there, e.g. avadi-villa-1.jpg (under ~500 KB each;
+     resize phone photos to ~1600 px wide).
+  2. Open public_html/projects.json (right-click > Edit) and paste one block per
+     project between the square brackets. Put the town in "area", e.g.
+     "Tambaram, Chengalpattu" - this helps local search too.
+
+[
+  {
+    "title": "Sea-facing 3BHK, balcony sliders",
+    "area": "Kelambakkam, Chengalpattu",
+    "site": "Apartment",
+    "type": "Sliding doors",
+    "series": "88 mm sliding",
+    "colour": "Pristine White",
+    "glass": "Clear toughened",
+    "count": 6,
+    "completed": "2026-11",
+    "update": "We have finished another home in Kelambakkam with new sliding doors.",
+    "brief": "Salty sea air was rusting the old frames and rain got in during the monsoon.",
+    "did": "6 sliding doors with mosquito mesh, sealed against monsoon rain.",
+    "quote": "Only add the customer's words if they agreed.",
+    "who": "Customer name, area",
+    "imgs": ["images/projects/kelambakkam-1.jpg", "images/projects/kelambakkam-2.jpg"]
+  },
+  {
+    "title": "Office cabins, Sriperumbudur",
+    "area": "Sriperumbudur, Kancheepuram",
+    "site": "Office",
+    "type": "Office partitions",
+    "colour": "Anthracite Grey",
+    "count": 9,
+    "completed": "2026-12",
+    "imgs": ["images/projects/sriperumbudur-office-1.jpg"]
+  }
+]
+
+     Rules: a comma between projects, none after the last one, keep all the
+     double quotes. Leave out any line you don't have.
+     "type": Casement windows, Sliding windows, Tilt and turn windows,
+       Fixed and combination, Sliding doors, French doors, Fold and slide doors,
+       Casement doors, Ventilators, Balcony design, Office partitions,
+       Mixed windows and doors
+     "colour": Pristine White, Ivory / Cream, Agate Grey, Anthracite Grey,
+       Black, Chartwell Green, Steel Blue, Dark Red, Golden Oak, Walnut,
+       Dark Oak, Rustic Oak, Mahogany
+     "completed": year-month, e.g. "2026-11".
+  3. Save and refresh the Projects page. If nothing shows, the file has a typo
+     (usually a missing comma or quote). Paste it into jsonlint.com to find it.
