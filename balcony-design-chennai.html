@@ -4286,8 +4286,12 @@ Tamil Nadu 600072</b></div><div style="gap:12px;margin-top:4px"><button type="bu
     if (!window.claude || !window.claude.use) {
       /* normal web hosting: projects come from projects.json next to this page */
       try {
-        const r = await fetch('projects.json', { cache: 'no-cache' });
-        if (r.ok) { const list = await r.json(); if (Array.isArray(list)) { projects = list.map((p, i) => Object.assign({ id: 'p' + i }, p)); render(); } }
+        /* data/projects.json is written by the /admin/ panel; projects.json is the fallback in the repo */
+        let list = null;
+        for (const src of ['/data/projects.json', '/projects.json']) {
+          try { const r = await fetch(src, { cache: 'no-cache' }); if (r.ok) { const j = await r.json(); if (Array.isArray(j)) { list = j; break; } } } catch (e) {}
+        }
+        if (list) { projects = list.map((p, i) => Object.assign({ id: 'p' + i }, p)); render(); }
       } catch (e) {}
       return;
     }

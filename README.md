@@ -11,9 +11,11 @@ deployed as-is into Hostinger's `public_html` for seyonupvc.com.
 - Area pages: `upvc-windows-thiruvallur.html`, `upvc-windows-kancheepuram.html`,
   `upvc-windows-chengalpattu.html`, `upvc-windows-chennai-city.html`
 
-## Adding a finished project
-1. Upload photos to `images/projects/` (under ~500 KB each).
-2. Edit `projects.json` and add an entry (see HOW-TO-ADD-PROJECTS.txt for the format).
-3. Commit to `main`. Hostinger auto-deploys within a minute or two.
+## Adding a finished project (admin panel)
+Projects are managed by Ganalytix at **https://seyonupvc.com/admin/** (password protected).
+The panel saves details to `data/projects.json` and resized photos to `images/projects/`
+on the live server. Both are git-ignored, so GitHub deploys never overwrite them.
 
-Do not edit files in Hostinger's File Manager: the next deploy overwrites them.
+`projects.json` in this repo is only a fallback used when the admin has no projects yet.
+
+Do not edit website pages in Hostinger's File Manager: the next deploy overwrites them.

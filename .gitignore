@@ -1,0 +1,5 @@
+# Written by the /admin/ panel on the live server; never committed, never overwritten by deploys
+/data/
+/images/projects/*
+!/images/projects/.gitkeep
+!/images/projects/.htaccess
