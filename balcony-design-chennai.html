@@ -537,6 +537,21 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
 .towns{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
 .towns li{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:15px;font-weight:600}
 .towns li.more{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.tour-btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:14px;font-weight:700;color:var(--accent);background:var(--accent-soft);border:1.5px solid var(--accent);border-radius:999px;min-height:40px;padding:0 14px 0 6px;cursor:pointer}
+.tour-btn span{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800}
+.tour-hi{position:relative;z-index:61;border-radius:14px;box-shadow:0 0 0 4px var(--surface),0 0 0 7px #75BB25,0 0 0 9999px rgba(14,8,24,.45);animation:tourpulse 1.6s ease-in-out infinite}
+@keyframes tourpulse{0%,100%{box-shadow:0 0 0 4px var(--surface),0 0 0 7px #75BB25,0 0 0 9999px rgba(14,8,24,.45)}50%{box-shadow:0 0 0 4px var(--surface),0 0 0 11px rgba(117,187,37,.55),0 0 0 9999px rgba(14,8,24,.45)}}
+.tour-tip{position:fixed;z-index:62;width:min(320px,calc(100vw - 24px));background:var(--surface);color:var(--ink);border-radius:14px;padding:14px 16px;box-shadow:0 12px 40px rgba(14,8,24,.35);display:flex;flex-direction:column;gap:6px}
+.tour-tip .tt-step{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.tour-tip .tt-h{font-size:17px}
+.tour-tip .tt-p{font-size:14.5px;color:var(--ink-2)}
+.tour-tip .tt-row{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.tour-tip .tt-skip{font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:0;cursor:pointer;min-height:40px;padding:0 10px}
+.tour-tip .tt-next{min-height:40px;padding:0 18px;font-size:14px}
+.tour-tip .tt-arrow{position:absolute;bottom:-7px;width:14px;height:14px;background:var(--surface);transform:rotate(45deg)}
+.tour-tip.below .tt-arrow{bottom:auto;top:-7px}
+@media (prefers-reduced-motion: reduce){.tour-hi{animation:none}}
+@media (max-width:560px){.toolbar .tsel{width:100%;min-width:0}.toolbar .tsel select{flex:1 1 auto;min-width:0;width:100%}}
 .fnav{display:flex;flex-wrap:wrap;gap:10px 20px;font-size:15px;font-weight:600;max-width:420px}
 .fnav a{color:var(--ink);text-decoration:none}
 .fnav a:hover{color:var(--accent)}
@@ -743,7 +758,7 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
         </svg>
       </div>
       <div class="toolbar">
-        <label class="tsel" for="prodSelect">Product
+        <label class="tsel" id="prodGroup" for="prodSelect">Product
           <select id="prodSelect">
             <option value="casement">Casement window</option>
             <option value="sliding">Sliding window</option>
@@ -759,19 +774,20 @@ footer{border-top:1px solid var(--line);background:var(--surface)}
           </select>
         </label>
         <button class="btn btn-primary" id="openBtn" type="button" aria-pressed="false">Open</button>
-        <div class="swatches" role="group" aria-label="Frame colour"><span aria-hidden="true">Frame</span>
+        <div class="swatches" id="frameGroup" role="group" aria-label="Frame colour"><span aria-hidden="true">Frame</span>
           <div class="swrow" id="swRow"></div>
           <b class="swname" id="swName" aria-live="polite">White</b>
           <label class="dualout" id="dualWrap" for="dualOut" hidden>Outside colour <select id="dualOut"></select></label>
         </div>
-        <div class="swatches" role="group" aria-label="Wall colour"><span aria-hidden="true">Wall</span>
+        <div class="swatches" id="wallGroup" role="group" aria-label="Wall colour"><span aria-hidden="true">Wall</span>
           <div class="swrow" id="wallRow"></div>
           <b class="swname" id="wallName" aria-live="polite">As designed</b>
         </div>
         <div class="seg" id="todSeg" role="group" aria-label="Time of day"><button type="button" data-tod="0" aria-pressed="true">Day</button><button type="button" data-tod="1" aria-pressed="false">Sunset</button><button type="button" data-tod="2" aria-pressed="false">Night</button></div>
-        <label class="tsel snd" for="sndSel">Sound test
+        <label class="tsel snd" id="sndGroup" for="sndSel">Sound test
           <select id="sndSel"><option value="off">Off</option><option value="rain">Monsoon rain</option><option value="traffic">City traffic and horns</option><option value="sea">Sea waves</option><option value="crackers">Firecrackers</option><option value="skyshots">Sky shots (aerial fireworks)</option><option value="construction">Construction work</option><option value="aircraft">Aircraft overhead</option><option value="birds">Birds and breeze</option></select>
         </label>
+        <button type="button" class="tour-btn" id="tourBtn" aria-label="Show how to use the 3D showroom"><span aria-hidden="true">?</span>How to use</button>
         <span class="status" aria-live="polite"><i aria-hidden="true"></i><span id="heroStatus">Closed</span></span>
       </div>
       <p class="spec" id="prodSpec">Casement window · two sashes on friction hinges · 1200 × 1350 mm</p>
@@ -3752,6 +3768,56 @@ Tamil Nadu 600072</b></div><div style="gap:12px;margin-top:4px"><button type="bu
     else { veil.classList.remove('on'); $('#hint').textContent = 'Tap Open to see it move'; }
   }
   window.__start3D = start3D;
+
+  /* ---------- showroom tour: tells first-time visitors what they can change ---------- */
+  const TOUR = [
+    ['#prodGroup', 'Pick a product', 'Choose any window, door, balcony or office partition to see it in a real room.'],
+    ['#openBtn', 'Open and close it', 'Tap here, or tap the window itself, to watch it open. Drag the room to look around.'],
+    ['#frameGroup', 'Change the frame colour', 'Try white, walnut brown, golden oak, grey or black.'],
+    ['#wallGroup', 'Match your wall colour', 'Paint the room to see how the frame suits your home.'],
+    ['#todSeg', 'See it in any light', 'Switch to sunset or night to see it at different times of day.'],
+    ['#sndGroup', 'Hear the difference', 'Play traffic, rain or crackers, then open and close the window to hear how much quieter it is.']];
+  const tip = document.createElement('div'); tip.className = 'tour-tip'; tip.hidden = true; tip.setAttribute('role', 'dialog'); tip.setAttribute('aria-live', 'polite');
+  tip.innerHTML = '<span class="tt-step"></span><b class="tt-h"></b><p class="tt-p"></p><div class="tt-row"><button type="button" class="tt-skip">Skip</button><button type="button" class="tt-next btn btn-primary">Next</button></div><i class="tt-arrow"></i>';
+  document.body.appendChild(tip);
+  let tourI = -1, tourEl = null;
+  function placeTip() {
+    if (!tourEl || tip.hidden) return;
+    const r = tourEl.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight, m = 12;
+    let left = Math.min(Math.max(12, r.left + r.width / 2 - tw / 2), innerWidth - tw - 12);
+    let top = r.top - th - m, below = false;
+    if (top < 80) { top = r.bottom + m; below = true; }
+    tip.style.left = left + 'px'; tip.style.top = top + 'px'; tip.classList.toggle('below', below);
+    tip.querySelector('.tt-arrow').style.left = Math.min(tw - 20, Math.max(12, r.left + r.width / 2 - left - 7)) + 'px';
+  }
+  function tourStep(i) {
+    if (tourEl) tourEl.classList.remove('tour-hi');
+    if (i >= TOUR.length || i < 0) { endTour(); return; }
+    tourI = i; const [sel, h, txt] = TOUR[i]; tourEl = $(sel);
+    if (!tourEl || tourEl.offsetParent === null) { tourStep(i + 1); return; }
+    tourEl.classList.add('tour-hi');
+    tip.querySelector('.tt-step').textContent = (i + 1) + ' of ' + TOUR.length;
+    tip.querySelector('.tt-h').textContent = h; tip.querySelector('.tt-p').textContent = txt;
+    tip.querySelector('.tt-next').textContent = i === TOUR.length - 1 ? 'Got it' : 'Next';
+    tip.hidden = false;
+    const r = tourEl.getBoundingClientRect();
+    if (r.top < 90 || r.bottom > innerHeight - 20) { const y = r.top + scrollY - innerHeight / 2; lenis ? lenis.scrollTo(y, { immediate: true }) : scrollTo(0, y); }
+    requestAnimationFrame(placeTip);
+  }
+  function endTour() { if (tourEl) tourEl.classList.remove('tour-hi'); tourEl = null; tourI = -1; tip.hidden = true; try { localStorage.setItem('seyonTourDone', '1'); } catch (e) {} }
+  tip.querySelector('.tt-next').addEventListener('click', () => tourStep(tourI + 1));
+  tip.querySelector('.tt-skip').addEventListener('click', endTour);
+  addEventListener('scroll', placeTip, { passive: true }); addEventListener('resize', placeTip);
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !tip.hidden) endTour(); });
+  /* clicking the highlighted control itself also moves the tour on */
+  TOUR.forEach(([sel], i) => { const el = $(sel); if (el) el.addEventListener('click', () => { if (tourI === i) setTimeout(() => tourStep(i + 1), 500); }); });
+  $('#tourBtn').addEventListener('click', () => tourStep(0));
+  let tourSeen = false; try { tourSeen = localStorage.getItem('seyonTourDone') === '1'; } catch (e) {}
+  if (!tourSeen && 'IntersectionObserver' in window) {
+    const tb = $('.toolbar');
+    const tio = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting && e.intersectionRatio > 0.6)) { tio.disconnect(); setTimeout(() => { if (!$('[data-page="home"]').hidden && tourI < 0 && !document.getElementById('intro')) tourStep(0); }, 1200); } }, { threshold: [0.6] });
+    if (tb) tio.observe(tb);
+  }
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); start3D(); } }, { rootMargin: '300px 0px' });
     io.observe($('#stage'));
