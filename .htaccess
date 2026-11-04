@@ -17,4 +17,19 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
   ExpiresByType image/svg+xml "access plus 30 days"
   ExpiresByType text/html "access plus 0 seconds"
   ExpiresByType application/json "access plus 0 seconds"
+  ExpiresByType application/javascript "access plus 30 days"
 </IfModule>
+
+# Security headers
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+</IfModule>
+
+# No folder listings, hide hidden files such as .git
+Options -Indexes
+RedirectMatch 404 /\.(git|env)
+RedirectMatch 404 ^/(README\.md|HOW-TO-ADD-PROJECTS\.txt)$

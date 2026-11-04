@@ -12,7 +12,7 @@ deployed as-is into Hostinger's `public_html` for seyonupvc.com.
   `upvc-windows-chengalpattu.html`, `upvc-windows-chennai-city.html`
 
 ## Adding a finished project (admin panel)
-Projects are managed by Ganalytix at **https://seyonupvc.com/admin/** (password protected).
+Projects are managed by Ganalytix through a private, password-protected admin page. Its address and file are kept out of this public repository and uploaded to Hostinger by hand.
 The panel saves details to `data/projects.json` and resized photos to `images/projects/`
 on the live server. Both are git-ignored, so GitHub deploys never overwrite them.
 

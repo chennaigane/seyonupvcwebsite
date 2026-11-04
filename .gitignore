@@ -3,3 +3,4 @@
 /images/projects/*
 !/images/projects/.gitkeep
 !/images/projects/.htaccess
+/gx-*/
