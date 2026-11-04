@@ -170,7 +170,9 @@ function head_html(string $title): void { ?>
 :root{--p:#440E7A;--g:#75BB25;--ink:#1B1530;--mut:#5E5873;--line:#E4E0EC;--bg:#FAF9FC;--soft:#F1EAF8;--err:#B42318}
 *{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
 .top{background:#fff;border-bottom:1px solid var(--line);padding:12px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.top b{font-size:17px;color:var(--p)}.top span{color:var(--mut);font-size:13px}.top .sp{flex:1}
+.top b{font-size:17px;color:var(--p)}.brand{display:flex;align-items:center;gap:10px;text-decoration:none}.brand img{height:40px;width:auto;display:block}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:url(/favicon.svg) no-repeat center 58%/min(60vw,520px) auto;opacity:.06}
+.top{position:relative;z-index:1}.card{position:relative}.top span{color:var(--mut);font-size:13px}.top .sp{flex:1}
 .wrap{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
 h1{font-size:24px;margin:0 0 4px}h2{font-size:19px;margin:28px 0 12px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:0 16px;border-radius:10px;border:1.5px solid var(--p);background:var(--p);color:#fff;font:inherit;font-weight:700;cursor:pointer;text-decoration:none}
@@ -199,7 +201,8 @@ function flash_html(): void { if (!empty($_SESSION['flash'])) { [$k, $m] = $_SES
 
 function page_login(int $lockedFor): void { head_html('Seyon UPVC admin · Sign in'); ?>
 <div class="login"><div class="card">
-  <h1>Seyon UPVC admin</h1><p style="color:var(--mut);margin:0 0 14px">Projects editor · managed by Ganalytix</p>
+  <img src="/favicon.svg" alt="Seyon UPVC" width="64" height="64" style="display:block;margin:0 auto 10px">
+  <h1 style="text-align:center">Seyon UPVC admin</h1><p style="color:var(--mut);margin:0 0 14px;text-align:center">Projects editor · managed by Ganalytix</p>
   <?php flash_html(); ?>
   <form method="post"><input type="hidden" name="csrf" value="<?= h(csrf()) ?>"><input type="hidden" name="action" value="login">
     <label>Password<input type="password" name="password" autocomplete="current-password" required autofocus <?= $lockedFor ? 'disabled' : '' ?>></label>
@@ -214,7 +217,7 @@ function opt(array $list, string $cur, bool $assoc = false): string {
 
 function page_admin(array $projects, ?array $e, bool $showForm, array $TYPES, array $COLOURS, array $SITES, array $SERIES, array $GLASS): void {
   head_html('Seyon UPVC admin · Projects'); $c = h(csrf()); ?>
-<div class="top"><b>Seyon UPVC</b><span>Projects admin · Ganalytix</span><div class="sp"></div>
+<div class="top"><a class="brand" href="./"><img src="/favicon.svg" alt="" width="40" height="40"><b>Seyon UPVC</b></a><span>Projects admin · Ganalytix</span><div class="sp"></div>
   <a class="btn ghost sm" href="/projects.html" target="_blank" rel="noopener">View Projects page</a>
   <form method="post" style="margin:0"><input type="hidden" name="csrf" value="<?= $c ?>"><button class="btn ghost sm" name="action" value="logout">Sign out</button></form></div>
 <div class="wrap">
